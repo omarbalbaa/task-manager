@@ -1,2 +1,46 @@
-<app-todo-form />
-<app-todo-list />
+<!-- <app-todo-form /> -->
+<form [formGroup]="taskForm">
+<label>Add New Task!</label>
+<input id="taskInput" formControlName="name" type="text" placeholder="To do ...">
+<div>
+  @if (taskForm.controls['name'].touched) {
+    @if (taskForm.controls['name'].errors?.['required']){
+      <span>Task details are required!</span>
+    } @else if (taskForm.controls['name'].errors?.['minlength']){
+      <span>Minimum length for a task is 3 letters</span>
+    } @else if (taskForm.controls['name'].errors?.['maxlength']){
+      <span>Maximum length for a task is 200 letters</span>
+    }
+  }
+</div>
+<p>
+    {{taskObj.name}}
+</p>
+@if (taskForm.controls['id'].value == '1') {
+  <button type="submit" [disabled]="taskForm.invalid" (click)="onSave()">Add Task</button>
+} @else {
+  <button type="button" [disabled]="taskForm.invalid" (click)="onUpdate()">Update Task</button>
+}
+</form>
+
+<!-- <app-todo-list /> -->
+@if (tasksList.length > 0) {
+  <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+  @for (task of tasksList; track task.id) {
+  <div class="example-box" cdkDrag>
+    {{task.name}}
+    <span>( {{task.status}} )</span>
+    @if (task.status == "done") {
+    <button (click)="onDelete(task.id)">Delete</button>
+    } @else {
+    <button (click)="onEdit(task)">Edit</button>
+    <button (click)="onDelete(task.id)">Delete</button>
+    <button (click)="onOnProgress(task.id)">In progress</button>
+    <button (click)="onDone(task.id)">Done</button>
+    }
+  </div>
+  }
+</div>
+}
+
+
