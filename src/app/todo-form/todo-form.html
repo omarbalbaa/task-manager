@@ -1,0 +1,9 @@
+<label>Add New Task!</label>
+<input id="taskInput" [formControl]="taskInput" type="text" placeholder="To do ...">
+<p>
+    {{taskInput.value}}
+</p>
+<button (click)="saveData()">Add Task</button>
+<div>
+    {{loadedData}}
+</div>

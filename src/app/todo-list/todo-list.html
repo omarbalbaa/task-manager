@@ -1,0 +1,19 @@
+<div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+  @for (task of tasks; track task) {
+  <div class="example-box" cdkDrag>
+    {{task.title}}
+    <span>( {{task.status}} )</span>
+    @if (task.status == "done") {
+    <button>Delete</button>
+    } @else {
+    <button>Edit</button>
+    <button>Started</button>
+    <button>Done</button>
+    }
+  </div>
+  }
+</div>
+
+<div> 
+  {{loadedData}}
+</div>
