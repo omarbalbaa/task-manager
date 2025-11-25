@@ -1,46 +1,80 @@
-<!-- <app-todo-form /> -->
-<form [formGroup]="taskForm">
-<label>Add New Task!</label>
-<input id="taskInput" formControlName="name" type="text" placeholder="To do ...">
-<div>
-  @if (taskForm.controls['name'].touched) {
-    @if (taskForm.controls['name'].errors?.['required']){
-      <span>Task details are required!</span>
-    } @else if (taskForm.controls['name'].errors?.['minlength']){
-      <span>Minimum length for a task is 3 letters</span>
-    } @else if (taskForm.controls['name'].errors?.['maxlength']){
-      <span>Maximum length for a task is 200 letters</span>
-    }
-  }
-</div>
-<p>
-    {{taskObj.name}}
-</p>
-@if (taskForm.controls['id'].value == '1') {
-  <button type="submit" [disabled]="taskForm.invalid" (click)="onSave()">Add Task</button>
-} @else {
-  <button type="button" [disabled]="taskForm.invalid" (click)="onUpdate()">Update Task</button>
-}
-</form>
+<div class="container mx-auto text-center">
+  <div class="sm:flex sm:flex-col text-center md:grid md:grid-cols-4 md:gap-4 md:place-items-center md:h-screen">
+    <!-- <app-todo-form /> -->
+    <form class="md:col-span-1" [formGroup]="taskForm">
+      <div class="flex flex-col text-center">
+        <label class="mt-5 text-2xl font-bold text-cyan-950">Add New Task!</label>
+        <input class="mt-5 mx-2 p-5 rounded-md border border-cyan-950" id="taskInput" formControlName="name" type="text"
+          placeholder="To do ...">
+        <div class="mt-2 text-red-900 font-semibold">
+          @if (taskForm.controls['name'].touched) {
+          @if (taskForm.controls['name'].errors?.['required']){
+          <span>Task details are required!</span>
+          } @else if (taskForm.controls['name'].errors?.['minlength']){
+          <span>Minimum length for a task is 3 letters</span>
+          } @else if (taskForm.controls['name'].errors?.['maxlength']){
+          <span>Maximum length for a task is 200 letters</span>
+          }
+          }
+        </div>
+        <div class="text-center">
+          @if (taskForm.controls['id'].value == '1') {
+          <button class="cursor-pointer mt-3 px-5 py-2 rounded-md text-white bg-cyan-950 hover:bg-cyan-900"
+            type="submit" [disabled]="taskForm.invalid" (click)="onSave()">
+            <i class="pi pi-plus-circle"></i>
+            <span class="font-semibold ms-2">Add Task</span>
+          </button>
+          } @else {
+          <button class="cursor-pointer mt-3 px-5 py-2 rounded-md text-white bg-cyan-950 hover:bg-cyan-900"
+            type="submit" [disabled]="taskForm.invalid" (click)="onUpdate()">
+            <i class="pi pi-save"></i>
+            <span class="font-semibold ms-2">Update Task</span>
+          </button>
+          }
+        </div>
+      </div>
+    </form>
 
-<!-- <app-todo-list /> -->
-@if (tasksList.length > 0) {
-  <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-  @for (task of tasksList; track task.id) {
-  <div class="example-box" cdkDrag>
-    {{task.name}}
-    <span>( {{task.status}} )</span>
-    @if (task.status == "done") {
-    <button (click)="onDelete(task.id)">Delete</button>
-    } @else {
-    <button (click)="onEdit(task)">Edit</button>
-    <button (click)="onDelete(task.id)">Delete</button>
-    <button (click)="onOnProgress(task.id)">In progress</button>
-    <button (click)="onDone(task.id)">Done</button>
-    }
+    <!-- <app-todo-list /> -->
+    <div class="mt-5 sm:container sm:mx-auto text-center md:col-span-3">
+      @if (tasksList.length > 0) {
+      <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+        @for (task of tasksList; track task.id) {
+        <div class="example-box" cdkDrag>
+          <div class="text-lg font-semibold overflow-hidden">
+            {{task.name}}
+            <span class="text-sm font-light">({{task.status}})</span>
+          </div>
+          <div class="flex flex-row gap-3">
+            @if (task.status == "done") {
+            <button (click)="onDelete(task.id)">
+              <i class="pi pi-trash"></i>
+              <span class="hidden md:block">Delete</span>
+            </button>
+            } @else {
+            <button (click)="onEdit(task)">
+              <i class="pi pi-pen-to-square"></i>
+              <span class="hidden md:block">Edit</span>
+            </button>
+            <button (click)="onDelete(task.id)">
+              <i class="pi pi-trash"></i>
+              <span class="hidden md:block">Delete</span>
+            </button>
+            <button (click)="onOnProgress(task.id)">
+              <i alt="In-progress" class="pi pi-chevron-circle-right"></i>
+              <span class="hidden md:block">In progress</span>
+            </button>
+            <button (click)="onDone(task.id)">
+              <i class="pi pi-check-circle"></i>
+              <span class="hidden md:block">Done</span>
+            </button>
+            }
+          </div>
+
+        </div>
+        }
+      </div>
+      }
+    </div>
   </div>
-  }
 </div>
-}
-
-
