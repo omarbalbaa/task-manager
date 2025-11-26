@@ -35,7 +35,14 @@ export class App {
     const oldData = localStorage.getItem("data");
     if (oldData != null) {
       const parseData = JSON.parse(oldData);
-      this.taskForm.controls['id'].setValue(parseData.length + 1);
+      let currentLastId: number = 1;
+      if (parseData.length > 0){
+        currentLastId = parseData[0].id + 1;
+      }
+      while (this.tasksList.some((item) => item.id === currentLastId)){
+        currentLastId += 1;        
+      }
+      this.taskForm.controls['id'].setValue(currentLastId)
       this.tasksList.unshift(this.taskForm.value);
     } else {
       this.tasksList.unshift(this.taskForm.value);      
