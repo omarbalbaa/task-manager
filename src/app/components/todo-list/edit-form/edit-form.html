@@ -1,0 +1,6 @@
+<form [formGroup]="taskForm">
+    <input class="mt-2 mx-2 p-3 rounded-md border border-cyan-950" id="taskInput" formControlName="name" type="text"
+        placeholder={{idFromParent()}}>
+    <button (click)="onUpdate()">Update Task</button>
+    <button (click)="onCancelUpdates()">Cancel</button>
+</form>
