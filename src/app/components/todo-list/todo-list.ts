@@ -38,16 +38,6 @@ export class TodoList {
   cancelEdit(): void {
     this.editedTask.set(null) ;
   }
-  
-  // onUpdate() {
-  //   if (this.taskForm.invalid) return;
-
-  //   const id = this.taskForm.controls['id'].value;
-  //   const name = this.taskForm.controls['name'].value;
-
-  //   this.taskService.updateTask(id, { name });
-  //   this.reset();
-  // }
 
   onDelete(taskId: number) {
     const isDelete = confirm('Are You sure you want to Delete?');

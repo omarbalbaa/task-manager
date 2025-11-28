@@ -1,3 +1,6 @@
+button{
+  cursor: pointer;
+}
 .example-list {
   width: 90%;
   justify-self: center;

@@ -1,6 +1,19 @@
 <form [formGroup]="taskForm">
     <input class="mt-2 mx-2 p-3 rounded-md border border-cyan-950" id="taskInput" formControlName="name" type="text"
         placeholder={{idFromParent()}}>
-    <button (click)="onUpdate()">Update Task</button>
-    <button (click)="onCancelUpdates()">Cancel</button>
+    <button class="cursor-pointer mt-3 mx-2 px-3 py-1 rounded-md text-white bg-cyan-950 hover:bg-cyan-900"
+        (click)="onUpdate()">Update Task</button>
+    <button class="cursor-pointer mt-3 px-3 py-1 rounded-md text-white bg-cyan-950 hover:bg-cyan-900"
+        (click)="onCancelUpdates()">Cancel</button>
+    <div class="mt-2 text-red-900 font-semibold">
+      @if (taskForm.controls['name'].touched) {
+      @if (taskForm.controls['name'].errors?.['required']){
+      <span>Task details are required!</span>
+      } @else if (taskForm.controls['name'].errors?.['minlength']){
+      <span>Minimum length for a task is 3 letters</span>
+      } @else if (taskForm.controls['name'].errors?.['maxlength']){
+      <span>Maximum length for a task is 200 letters</span>
+      }
+      }
+    </div>
 </form>

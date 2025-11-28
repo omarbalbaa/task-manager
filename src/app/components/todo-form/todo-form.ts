@@ -34,17 +34,6 @@ export class TodoForm {
   }
 
   onSave() {
-  //   const oldData = localStorage.getItem("data");
-  //   if (oldData != null) {
-  //     const parseData = JSON.parse(oldData);
-  //     this.taskForm.controls['id'].setValue(parseData.length + 1);
-  //     this.tasksList.unshift(this.taskForm.value);
-  //   } else {
-  //     this.tasksList.unshift(this.taskForm.value);      
-  //   }
-  //   localStorage.setItem("data", JSON.stringify(this.tasksList));
-  //   this.taskObj = new TaskModel();
-  //   this.createForm();
     this.taskService.addNewTask(this.taskForm.value);
     this.reset();
   }

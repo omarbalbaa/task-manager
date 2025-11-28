@@ -15,19 +15,11 @@
       }
     </div>
     <div class="text-center">
-      @if (taskForm.controls['id'].value == '1') {
       <button class="cursor-pointer mt-3 px-5 py-2 rounded-md text-white bg-cyan-950 hover:bg-cyan-900" type="submit"
         [disabled]="taskForm.invalid" (click)="onSave()">
         <i class="pi pi-plus-circle"></i>
         <span class="font-semibold ms-2">Add Task</span>
       </button>
-      } @else {
-      <button class="cursor-pointer mt-3 px-5 py-2 rounded-md text-white bg-cyan-950 hover:bg-cyan-900" type="submit"
-        [disabled]="taskForm.invalid" (click)="onUpdate()">
-        <i class="pi pi-save"></i>
-        <span class="font-semibold ms-2">Update Task</span>
-      </button>
-      }
     </div>
   </div>
 </form>

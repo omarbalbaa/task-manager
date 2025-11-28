@@ -4,7 +4,7 @@
     <div class="example-box" cdkDrag>
         @if (task == editedTask()) {
         <app-edit-form [idFromParent]= "task.id" (childEvent)="handleDataFromChild($event)" />
-        <div>{{childValue}}</div>
+        <!-- <div>{{childValue}}</div> -->
         } @else {
         <div class="text-lg font-semibold overflow-hidden">
             {{task.name}}
@@ -12,24 +12,24 @@
         </div>
         <div class="flex flex-row gap-3">
             @if (task.status == "done") {
-            <button (click)="onDelete(task.id)">
+            <button class="cursor-pointer" (click)="onDelete(task.id)">
                 <i class="pi pi-trash"></i>
                 <span class="hidden md:block">Delete</span>
             </button>
             } @else {
-            <button (click)="onEdit(task)">
+            <button class="cursor-pointer" (click)="onEdit(task)">
                 <i class="pi pi-pen-to-square"></i>
                 <span class="hidden md:block">Edit</span>
             </button>
-            <button (click)="onDelete(task.id)">
+            <button class="cursor-pointer" (click)="onDelete(task.id)">
                 <i class="pi pi-trash"></i>
                 <span class="hidden md:block">Delete</span>
             </button>
-            <button (click)="onOnProgress(task.id)">
+            <button class="cursor-pointer" (click)="onOnProgress(task.id)">
                 <i alt="In-progress" class="pi pi-chevron-circle-right"></i>
                 <span class="hidden md:block">In progress</span>
             </button>
-            <button (click)="onDone(task.id)">
+            <button class="cursor-pointer" (click)="onDone(task.id)">
                 <i class="pi pi-check-circle"></i>
                 <span class="hidden md:block">Done</span>
             </button>

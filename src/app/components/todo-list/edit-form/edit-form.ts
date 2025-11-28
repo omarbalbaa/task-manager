@@ -20,21 +20,17 @@ export class EditForm implements OnInit {
   
 
   constructor() {
-    console.log("id from parent at constructor " + this.idFromParent());
-    // const task = this.getEditingTask();
-    // if (task) {
-    //   this.onEdit(task);
-    // }
+    // console.log("id from parent at constructor " + this.idFromParent());
   }
   ngOnInit(){
-    console.log("id from parent at OnInit " + this.idFromParent());
+    // console.log("id from parent at OnInit " + this.idFromParent());
     const task = this.getEditingTask();
     this.taskObj = this.getEditingTask();
     if (task) {
       this.onEdit(task);
     }
-    console.log("taskObj at OnInit " + this.taskObj?.name);
-    console.log(task);
+    // console.log("taskObj at OnInit " + this.taskObj?.name);
+    // console.log(task);
   }
   getEditingTask() {
     return this.taskService.tasksSignal().find((i) => i.id == this.idFromParent());
@@ -53,7 +49,6 @@ export class EditForm implements OnInit {
       });
     }
   }
-  // taskObj = this.getEditingTask();
   onCancelUpdates() {
     this.childEvent.emit(true);
   }
@@ -65,17 +60,9 @@ export class EditForm implements OnInit {
   }
   onUpdate() {
     if (this.taskForm.invalid) return;
-
     const id = this.taskForm.controls['id'].value;
     const name = this.taskForm.controls['name'].value;
     this.taskService.updateTask(id, { name });
-    // const record = this.getEditingTask();
-    // if (record != undefined) {
-    //   record.name = this.taskForm.controls['name'].value;
-    // }
-    // localStorage.setItem('data', JSON.stringify(this.taskService.tasksSignal));
-    // this.taskObj = new TaskModel();
-    // this.createForm();
     this.childEvent.emit(true);
   }
 }
