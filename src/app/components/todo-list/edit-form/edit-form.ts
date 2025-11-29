@@ -1,8 +1,6 @@
 import { Component, inject, input, output, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TaskModel } from '../../../models/task';
 import { LocalTaskService } from '../../../services/local-task-service';
-import { KeyValuePipe } from '@angular/common';
 
 @Component({
   selector: 'app-edit-form',
@@ -12,57 +10,40 @@ import { KeyValuePipe } from '@angular/common';
 })
 export class EditForm implements OnInit {
   taskService = inject(LocalTaskService);
-  idFromParent  = input();
-  childEvent = output<boolean>();
-  
-  taskForm: FormGroup = new FormGroup({});
-  taskObj?: TaskModel;
-  
+  idFromParent = input();
+  hideEditForm = output<boolean>();
 
-  constructor() {
-    // console.log("id from parent at constructor " + this.idFromParent());
-  }
-  ngOnInit(){
-    // console.log("id from parent at OnInit " + this.idFromParent());
+  taskForm: FormGroup = new FormGroup({
+    id: new FormControl(null),
+    name: new FormControl('', [
+      Validators.required,
+      Validators.minLength(3),
+      Validators.maxLength(200),
+    ]),
+    status: new FormControl('pending'),
+  });
+
+  ngOnInit() {
     const task = this.getEditingTask();
-    this.taskObj = this.getEditingTask();
     if (task) {
-      this.onEdit(task);
+      this.taskForm.patchValue(task);
     }
-    // console.log("taskObj at OnInit " + this.taskObj?.name);
-    // console.log(task);
   }
   getEditingTask() {
     return this.taskService.tasksSignal().find((i) => i.id == this.idFromParent());
   }
-  
-  createForm() {
-    if (this.taskObj != undefined) {
-      this.taskForm = new FormGroup({
-        id: new FormControl(this.taskObj.id),
-        name: new FormControl(this.taskObj.name, [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(200),
-        ]),
-        status: new FormControl(this.taskObj.status),
-      });
-    }
-  }
+
   onCancelUpdates() {
-    this.childEvent.emit(true);
+    this.hideEditForm.emit(true);
+    this.taskForm.reset();
   }
-  onEdit(task: TaskModel | undefined) {
-    if (!this.taskObj) return;
-    this.taskObj = task;
-    console.log(this.taskObj);
-    this.createForm();
-  }
+
   onUpdate() {
     if (this.taskForm.invalid) return;
     const id = this.taskForm.controls['id'].value;
     const name = this.taskForm.controls['name'].value;
     this.taskService.updateTask(id, { name });
-    this.childEvent.emit(true);
+    this.hideEditForm.emit(true);
+    this.taskForm.reset();
   }
 }

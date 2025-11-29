@@ -1,13 +1,13 @@
-type statusType = "pending" | "in-progress" | "done";
+export type TStatusType = "pending" | "in-progress" | "done";
 
 export class TaskModel {
   id: number;
   name: string;
-  status: statusType;
+  status: TStatusType;
 
-  constructor (){
-    this.id = 1;
-    this.name = "";
-    this.status = "pending";
+  constructor (args?: {id: number | null, name: string | null, status: TStatusType}){
+    this.id = args?.id ?? 1;
+    this.name = args?.name ?? "";
+    this.status = args?.status ?? "pending"
   }
 }

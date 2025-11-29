@@ -3,8 +3,7 @@
     @for (task of taskService.tasksSignal(); track task.id) {
     <div class="example-box" cdkDrag>
         @if (task == editedTask()) {
-        <app-edit-form [idFromParent]= "task.id" (childEvent)="handleDataFromChild($event)" />
-        <!-- <div>{{childValue}}</div> -->
+        <app-edit-form [idFromParent]= "task.id" (hideEditForm)="handleDataFromChild($event)" />
         } @else {
         <div class="text-lg font-semibold overflow-hidden">
             {{task.name}}

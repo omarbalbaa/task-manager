@@ -12,21 +12,17 @@ import { EditForm } from './edit-form/edit-form';
 })
 export class TodoList {
   editedTask = signal<TaskModel | null>(null);
-  public childValue: boolean = false;
+  public destroyEditForm: boolean = false;
+
   handleDataFromChild(data: boolean) {
     if (data){
       this.cancelEdit();      
     }
-    this.childValue = data;
-    console.log('Data received in parent:', this.childValue);
+    this.destroyEditForm = data;
   }
 
   taskService = inject(LocalTaskService);
   taskObj: TaskModel = new TaskModel();
-  isEditing: boolean = false;
-  constructor() {
-    this.isEditing = false;
-  }
 
   onEdit(task: TaskModel) {
     this.editedTask.set(task);
@@ -40,7 +36,7 @@ export class TodoList {
   }
 
   onDelete(taskId: number) {
-    const isDelete = confirm('Are You sure you want to Delete?');
+    const isDelete = confirm('Are you sure you want to delete?');
     if (isDelete) {
       this.taskService.deleteTask(taskId);
     }
